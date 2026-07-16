@@ -1,0 +1,359 @@
+:root{
+  --paper:#EDF1F4;
+  --ink:#131B2E;
+  --ink-soft:#465066;
+  --accent-tag:#FFB627;
+  --accent-good:#1B8A5A;
+  --line:#C7D0D9;
+  --card:#FFFFFF;
+}
+
+*{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Inter', sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+
+a{ color:inherit; }
+
+/* ---------- Header ---------- */
+header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:20px clamp(20px,5vw,56px);
+  border-bottom:1px solid var(--line);
+  position:sticky;
+  top:0;
+  background:var(--paper);
+  z-index:20;
+}
+
+.logo{
+  font-family:'Space Grotesk', sans-serif;
+  font-weight:700;
+  font-size:1.3rem;
+  letter-spacing:-0.02em;
+}
+.logo span{ color:var(--accent-good); }
+
+.tabs{
+  display:flex;
+  gap:4px;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:100px;
+  padding:4px;
+}
+.tab-btn{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:0.78rem;
+  letter-spacing:0.03em;
+  text-transform:uppercase;
+  border:none;
+  background:transparent;
+  color:var(--ink-soft);
+  padding:8px 18px;
+  border-radius:100px;
+  cursor:pointer;
+  transition:background .15s ease, color .15s ease;
+}
+.tab-btn:focus-visible{ outline:2px solid var(--ink); outline-offset:2px; }
+.tab-btn.active{ background:var(--ink); color:var(--paper); }
+
+/* ---------- Hero ---------- */
+.hero{
+  padding:56px clamp(20px,5vw,56px) 32px;
+  max-width:760px;
+}
+.hero h1{
+  font-family:'Space Grotesk', sans-serif;
+  font-size:clamp(1.9rem, 4vw, 2.6rem);
+  line-height:1.15;
+  letter-spacing:-0.02em;
+  margin:0 0 12px;
+}
+.hero p{
+  color:var(--ink-soft);
+  font-size:1.02rem;
+  line-height:1.5;
+  margin:0;
+}
+
+/* ---------- Grid ---------- */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
+  gap:24px;
+  padding:8px clamp(20px,5vw,56px) 120px;
+}
+
+/* ---------- Price-tag card ---------- */
+.card{
+  position:relative;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:22px 20px 18px;
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.card:hover{ transform:translateY(-3px); box-shadow:0 10px 24px rgba(19,27,46,0.08); }
+.card.hidden{ display:none; }
+
+/* punched hole, top-left, like a shelf tag */
+.card::before{
+  content:"";
+  position:absolute;
+  top:14px; left:16px;
+  width:12px; height:12px;
+  background:var(--paper);
+  border:2px solid var(--line);
+  border-radius:50%;
+}
+
+.card-top{
+  display:flex;
+  justify-content:flex-end;
+  margin-bottom:6px;
+}
+.cat-chip{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:0.65rem;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+  border:1px solid var(--line);
+  border-radius:100px;
+  padding:3px 10px;
+}
+
+.product-name{
+  font-family:'Space Grotesk', sans-serif;
+  font-weight:700;
+  font-size:1.15rem;
+  margin:6px 0 10px;
+  padding-left:6px;
+}
+
+.spec-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px 10px;
+  padding-left:6px;
+  margin-bottom:16px;
+  font-family:'IBM Plex Mono', monospace;
+  font-size:0.74rem;
+  color:var(--ink-soft);
+}
+.spec-row span{ white-space:nowrap; }
+.spec-row span:not(:last-child)::after{ content:"·"; margin-left:8px; color:var(--line); }
+
+/* perforation line, like tearing off a tag */
+.perf{
+  height:1px;
+  margin:0 -20px 14px;
+  background-image:repeating-linear-gradient(to right, var(--line) 0 6px, transparent 6px 13px);
+}
+
+.price-list{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  margin-bottom:18px;
+}
+.price-row{
+  display:grid;
+  grid-template-columns:1fr auto auto;
+  align-items:center;
+  gap:10px;
+  font-size:0.9rem;
+}
+.retailer{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  color:var(--ink-soft);
+}
+.dot{ width:8px; height:8px; border-radius:50%; flex:none; }
+.price{
+  font-family:'IBM Plex Mono', monospace;
+  font-weight:600;
+}
+
+/* per-retailer "search on their site" buttons, tinted to each brand */
+.buy-btn{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:0.66rem;
+  text-transform:uppercase;
+  letter-spacing:0.03em;
+  text-decoration:none;
+  padding:5px 11px;
+  border-radius:100px;
+  white-space:nowrap;
+  transition:opacity .15s ease, transform .15s ease;
+}
+.buy-btn:hover{ opacity:0.86; transform:translateY(-1px); }
+.buy-btn:focus-visible{ outline:2px solid var(--ink); outline-offset:2px; }
+
+/* brand palettes — swap in each retailer's real hex when you wire up real links */
+.dot-amazon, .buy-amazon{ background:#FF9900; }
+.buy-amazon{ color:#14213D; }
+.dot-flipkart, .buy-flipkart{ background:#2874F0; }
+.buy-flipkart{ color:#fff; }
+.dot-croma, .buy-croma{ background:#0C9A6C; }
+.buy-croma{ color:#fff; }
+.dot-reliance, .buy-reliance{ background:#E42527; }
+.buy-reliance{ color:#fff; }
+.dot-vijay, .buy-vijay{ background:#7B2FF7; }
+.buy-vijay{ color:#fff; }
+
+.price-row.best{
+  background:#FFF6E3;
+  border:1px dashed var(--accent-tag);
+  border-radius:6px;
+  padding:7px 10px;
+  margin:0 -6px;
+  position:relative;
+}
+.best-badge{
+  position:absolute;
+  top:-9px; right:8px;
+  background:var(--accent-good);
+  color:#fff;
+  font-family:'IBM Plex Mono', monospace;
+  font-size:0.6rem;
+  letter-spacing:0.04em;
+  text-transform:uppercase;
+  padding:2px 7px;
+  border-radius:100px;
+  transform:rotate(2deg);
+}
+.price-row.best .price{ color:var(--accent-good); }
+
+.card-actions{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding-left:6px;
+}
+.compare-label{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  font-size:0.82rem;
+  color:var(--ink-soft);
+  cursor:pointer;
+}
+.compare-label input{ accent-color:var(--ink); width:15px; height:15px; }
+
+.view-btn{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:0.75rem;
+  text-transform:uppercase;
+  letter-spacing:0.03em;
+  background:var(--ink);
+  color:var(--paper);
+  border:none;
+  padding:8px 14px;
+  border-radius:6px;
+  cursor:pointer;
+}
+.view-btn:focus-visible{ outline:2px solid var(--accent-tag); outline-offset:2px; }
+
+/* ---------- Floating compare bar ---------- */
+.compare-bar{
+  position:fixed;
+  left:50%;
+  bottom:22px;
+  transform:translate(-50%, 140%);
+  background:var(--ink);
+  color:var(--paper);
+  padding:14px 16px 14px 22px;
+  border-radius:100px;
+  display:flex;
+  align-items:center;
+  gap:16px;
+  box-shadow:0 12px 30px rgba(19,27,46,0.28);
+  transition:transform .25s ease;
+  z-index:30;
+}
+.compare-bar.show{ transform:translate(-50%, 0); }
+.compare-bar span{ font-family:'IBM Plex Mono', monospace; font-size:0.82rem; }
+.compare-bar button{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:0.78rem;
+  text-transform:uppercase;
+  background:var(--accent-tag);
+  color:var(--ink);
+  border:none;
+  padding:9px 18px;
+  border-radius:100px;
+  cursor:pointer;
+}
+
+/* ---------- Footer ---------- */
+footer{
+  background:var(--ink);
+  color:var(--paper);
+  margin-top:20px;
+}
+.footer-perf{
+  height:1px;
+  background-image:repeating-linear-gradient(to right, rgba(237,241,244,0.35) 0 6px, transparent 6px 13px);
+}
+.footer-inner{
+  display:grid;
+  grid-template-columns:1.6fr repeat(3, 1fr);
+  gap:32px;
+  padding:44px clamp(20px,5vw,56px) 28px;
+}
+.footer-logo{ color:var(--paper); }
+.footer-logo span{ color:var(--accent-tag); }
+.footer-brand p{
+  color:#AEB8CC;
+  font-size:0.88rem;
+  line-height:1.5;
+  margin:10px 0 0;
+  max-width:280px;
+}
+.footer-col h4{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:0.68rem;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  color:#8992A8;
+  margin:0 0 14px;
+}
+.footer-col a{
+  display:block;
+  color:#D7DCE6;
+  text-decoration:none;
+  font-size:0.88rem;
+  margin-bottom:10px;
+}
+.footer-col a:hover{ color:var(--accent-tag); }
+.footer-col a:focus-visible{ outline:2px solid var(--accent-tag); outline-offset:2px; }
+.footer-bottom{
+  border-top:1px solid rgba(237,241,244,0.12);
+  padding:16px clamp(20px,5vw,56px) 26px;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:space-between;
+  gap:8px;
+  font-family:'IBM Plex Mono', monospace;
+  font-size:0.7rem;
+  color:#8992A8;
+}
+
+@media (max-width:640px){
+  .footer-inner{ grid-template-columns:1fr 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{ transition:none !important; scroll-behavior:auto !important; }
+}
